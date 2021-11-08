@@ -372,7 +372,7 @@ kubectl get pv pvc-49fea9cf-xxx -oyaml
 #     path: /export/pvc-2e95f6c4-2b43-4375-808f-0c93e44a1003
 #     server: 10.43.248.122
 #   persistentVolumeReclaimPolicy: Delete
-#   storageClassName: nfs
+#   storageClassName: example-nfs
 #   volumeMode: Filesystem
 # status:
 #   phase: Bound
@@ -448,61 +448,13 @@ kubectl delete pod use-pvc-sc
 kubectl delete pvc nfs-sc
 ```
 
-## 쿠버네티스 스토리지 활용
+## Do it more
 
-```bash
-helm repo add bitnami https://charts.bitnami.com/bitnami
-helm fetch --untar bitnami/minio
+Wordpress 앱을 `helm`으로 설치해 봅시다: https://artifacthub.io/packages/helm/bitnami/wordpress
 
-vim minio/values.yaml
-```
+다음과 같은 설정이 필요합니다.
 
-```yaml
-...
-accessKey: 
-  password: "myaccesskey"
-secretKey: 
-  password: "mysecretkey"
-...
-persistence:
-  storageClass: "example-nfs"
-  accessMode: "ReadWriteMany"
-  size: 2Gi
+1. `helm fetch --untar`로 chart 다운로드
+2. `storageClass` 설정: `example-nfs`
+3. `ingress` 설정: [참고](https://github.com/pepsicolav13/docker-k8s-workshop/blob/main/05/02.md)
 
-ingress:
-  # false --> true
-  enabled: true
-  labels: {}
-
-  # annotation 설정
-  annotations:
-    kubernetes.io/ingress.class: nginx
-  path: /
-  hosts:
-    - minio.10.0.1.1.sslip.io
-```
-
-```bash
-NEW_IP=''
-sed -i 's/10.0.1.1/'$NEW_IP'/g' minio/values.yaml
-
-helm install minio ./minio
-
-kubectl get pod
-# NAME                      READY   STATUS             RESTARTS   AGE
-# minio-7f58448457-vctrp    1/1     Running            0          2m
-
-kubectl get pvc
-# NAME     STATUS   VOLUME             CAPACITY   ACCESS MODES  STORAGECLASS    AGE
-# minio    Bound    pvc-cff81820-xxx   10Gi       RWO           example-nfs     2m40s
-
-kubectl get pv
-# NAME               CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS  CLAIM           STORAGECLASS   REASON   AGE 
-# pvc-cff81820-xxx   10Gi       RWO            Delete           Bound   default/minio   nfs                     3m
-```
-
-### Clean up
-
-```bash
-helm delete minio
-```
