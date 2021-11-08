@@ -78,7 +78,7 @@ kubectl create clusterrolebinding localpath-admin --clusterrole cluster-admin --
 
 ### helm & Ingress 설치
 
-[상세 ](03storage/helm-ingress.md)
+[설치 가이드](../03storage/helm-ingress.md)
 
 
 ## Cluster Remove Node
