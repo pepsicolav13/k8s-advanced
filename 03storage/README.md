@@ -171,6 +171,9 @@ kubectl delete pv my-volume
 [https://github.com/rancher/local-path-provisioner](https://github.com/rancher/local-path-provisioner)
 
 ```bash
+# RBAC for local-path-provisioner
+kubectl create clusterrolebinding localpath-admin --clusterrole cluster-admin --serviceaccount=local-path-storage:local-path-provisioner-service-account
+
 # install
 kubectl apply -f https://raw.githubusercontent.com/rancher/local-path-provisioner/master/deploy/local-path-storage.yaml
 
