@@ -451,6 +451,7 @@ kubectl delete pvc nfs-sc
 ## 쿠버네티스 스토리지 활용
 
 ```bash
+helm repo add bitnami https://charts.bitnami.com/bitnami
 helm fetch --untar bitnami/minio
 
 vim minio/values.yaml
