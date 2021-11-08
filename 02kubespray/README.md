@@ -39,6 +39,11 @@ scp ~/.ssh/id_rsa.pub $WORKER2:~/.ssh/authorized_keys2
 ansible all -i inventory/mycluster/hosts.yaml  -m ping
 ```
 
+## ansible 기본 디렉토리 구조
+
+- `inventory`: cluster마다 설정하는 상세정보 (k8s 버전, CNI 종류, 도커 세부설정 등)
+- `roles`: deploy, remove 등 ansible의 command를 정의한 모음집
+
 ## kubespray configuration
 
 `inventory/mycluster/group_vars/`
