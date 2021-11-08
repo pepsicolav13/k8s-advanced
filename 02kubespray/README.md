@@ -39,9 +39,9 @@ CONFIG_FILE=inventory/mycluster/hosts.yaml python contrib/inventory_builder/inve
 ssh-keygen -t rsa
 
 # Deploy to master, worker
-scp ~/.ssh/id_rsa.pub $MASTER:~/.ssh/authorized_keys2
-scp ~/.ssh/id_rsa.pub $WORKER1:~/.ssh/authorized_keys2
-scp ~/.ssh/id_rsa.pub $WORKER2:~/.ssh/authorized_keys2
+scp -i ~/PEM_FILE ~/.ssh/id_rsa.pub $MASTER:~/.ssh/authorized_keys2
+scp -i ~/PEM_FILE ~/.ssh/id_rsa.pub $WORKER1:~/.ssh/authorized_keys2
+scp -i ~/PEM_FILE ~/.ssh/id_rsa.pub $WORKER2:~/.ssh/authorized_keys2
 
 # ping
 ansible all -i inventory/mycluster/hosts.yaml  -m ping
