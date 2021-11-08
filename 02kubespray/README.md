@@ -15,7 +15,9 @@ git clone https://github.com/kubernetes-sigs/kubespray.git -b v2.15.1
 cd kubespray
 
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
-bash Miniconda3-latest-Linux-x86_64.sh
+bash Miniconda3-latest-Linux-x86_64.sh -f -b -p $HOME/conda
+echo 'export PATH=$PATH:$HOME/conda/bin'  >> ~/.bashrc
+bash
 
 # Install dependencies from `requirements.txt`
 pip install PyOpenSSL==19.0.0 && pip install -r requirements.txt
