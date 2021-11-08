@@ -71,9 +71,6 @@ sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
 kubectl get node -owide
-
-# RBAC for local-path-provisioner
-kubectl create clusterrolebinding localpath-admin --clusterrole cluster-admin --serviceaccount=local-path-storage:local-path-provisioner-service-account
 ```
 
 ### helm & Ingress 설치
