@@ -76,6 +76,11 @@ kubectl get node -owide
 kubectl create clusterrolebinding localpath-admin --clusterrole cluster-admin --serviceaccount=local-path-storage:local-path-provisioner-service-account
 ```
 
+### helm & Ingress 설치
+
+[상세 ](03storage/helm-ingress.md)
+
+
 ## Cluster Remove Node
 
 ```bash
