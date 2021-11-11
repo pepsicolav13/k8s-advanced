@@ -5,8 +5,9 @@
 ### Metrics server 설치
 
 ```bash
-# Already install by kubespray
-# helm install metrics-server bitnami/metrics-server
+# Install metrics server, if not installed.
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm install metrics-server bitnami/metrics-server
 
 kubectl get pod -n kube-system
 # NAME                   READY   STATUS    RESTARTS   AGE
