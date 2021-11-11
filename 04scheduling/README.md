@@ -6,8 +6,11 @@
 
 ```bash
 # Install metrics server, if not installed.
-helm repo add bitnami https://charts.bitnami.com/bitnami
-helm install metrics-server bitnami/metrics-server
+# helm repo add bitnami https://charts.bitnami.com/bitnami
+# helm install metrics-server bitnami/metrics-server
+kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+# add --kubelet-insecure-tls
+
 
 kubectl get pod -n kube-system
 # NAME                   READY   STATUS    RESTARTS   AGE
