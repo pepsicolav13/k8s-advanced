@@ -9,6 +9,7 @@
 # helm repo add bitnami https://charts.bitnami.com/bitnami
 # helm install metrics-server bitnami/metrics-server
 kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+kubectl edit deploy -nkube-system metrics-server
 # add --kubelet-insecure-tls
 
 
