@@ -37,8 +37,8 @@ kind: MyPod
 metadata:
   name: mypod-test
 spec:
-  uri: "any uri"
-  customCommand: "custom command"
+  podName: "hello"
+  command: "echo hello"
   image: nginx
 EOF
 # mypod.crd.example.com/mypod-test created
@@ -64,9 +64,9 @@ kubectl get mypod mypod-test -oyaml
 #   selfLink: /apis/crd.example.com/v1/namespaces/default/mypods/mypod-test
 #   uid: 50dd0cc8-0c1a-4f43-854b-a9c212e2046d
 # spec:
-#   customCommand: custom command
+#   podName: "hello"
+#   command: "echo hello"
 #   image: nginx
-#   uri: any uri
 
 # MyPod를 삭제합니다.
 kubectl delete mp mypod-test
