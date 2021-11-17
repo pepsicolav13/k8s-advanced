@@ -75,27 +75,54 @@ kubectl delete mp mypod-test
 
 ### Custom Controller
 
-```bash
-# MyPod 정의
-struct MyPod {
-  Uri string
-  CustomCommand string
-  ...
-}
+```python
+import requests
+import sys 
+import json
+
+server = sys.argv[1]
+token = sys.argv[2]
+
+headers = {"Authorization": "Bearer %s" % token}
 
 
-def main {
-  # 무한루프
-    for {
-      # 신규 이벤트
-        desired := apiServer.getDesiredState(MyPod)
-        # 기존 이벤트
-        current := apiServer.getCurrentState(MyPod)
-        
-        # 변경점 발생시(수정,생성,삭제), 특정 동작 수행
-        if desired != current {
-            makeChanges(desired, current) 
-        }
-    }
-}
+def add_pod(name):
+    pod_spec = { 
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+         "name" : name
+      },  
+      "spec": {
+        "containers": [{
+           "image": "nginx",
+           "name": "mynginx"
+          }   
+        ]   
+      }   
+    }   
+    r = requests.post("https://{server}/api/v1/namespaces/default/pods".format(server=server), headers=headers, verify=False, json=pod_spec)
+    print(r.text)
+
+
+def delete_pod(name):
+    r = requests.delete("https://{server}/api/v1/namespaces/default/pods/{name}".format(server=server, name=name), headers=headers, verify=False)
+    print(r.text)
+
+
+def run_controller():
+    r = requests.get("https://{server}/apis/crd.example.com/v1/namespaces/default/mypods?watch=true".format(server=server), headers=headers, verify=False, stream=True)
+    for line in r.iter_lines():
+        j = json.loads(line)
+        if j['type'] == 'ADDED':
+            name = j['object']['spec']['podName']
+            add_pod(name)
+            print('add pod name: {name}'.format(name=name))
+        elif j['type'] == 'DELETED':
+            name = j['object']['spec']['podName']
+            delete_pod(name)
+            print('delete pod name: {name}'.format(name=name))
+
+
+run_controller()
 ```
