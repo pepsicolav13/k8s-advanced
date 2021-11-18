@@ -2,6 +2,27 @@
 
 ## CI 파이프라인 (Github Action)
 
+
+```yaml
+# .github/workflows/main.yml
+name: kubernetes CI/CD
+on: push
+
+jobs:
+  build:
+    name: Hello world action
+    runs-on: ubuntu-latest    
+    steps:
+    - name: checkout source code
+      uses: actions/checkout@main
+
+    - name: Print Env
+      run: printenv
+```
+
+https://docs.github.com/en/actions/learn-github-actions/environment-variables
+
+
 - CI
 
 ```bash
