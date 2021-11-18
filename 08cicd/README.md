@@ -127,17 +127,13 @@ metadata:
     nginx.ingress.kubernetes.io/ssl-passthrough: "true"
 spec:
   rules:
-  - host: argocd.10.0.1.1.sslip.io
+  - host: argocd.3.34.188.85.sslip.io
     http:
       paths:
       - path: /
         backend:
           serviceName: argocd-server
           servicePort: https
-  tls:
-  - hosts:
-    - argocd.10.0.1.1.sslip.io
-    secretName: argocd-tls
 ```
 
 ```bash
