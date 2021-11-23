@@ -299,7 +299,7 @@ kubectl create -f dag.yaml
 
 ### 다양한 Examples
 
-- https://argoproj.github.io/argo-workflows/examples/
+- https://github.com/argoproj/argo-workflows/blob/master/examples/README.md#dag
 
 ### Clean up
 
